@@ -16,6 +16,20 @@ void printMaze(char **maze, int rows, int cols) {
     }
 }
 
+void printMazeToFile(char **maze, int rows, int cols) {
+
+    FILE *fp = fopen("mazeResolved.txt", "w");
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            fprintf(fp,"%c", maze[i][j]);
+        }
+        fprintf(fp, "\n");
+    }
+
+    fclose(fp);
+}
+
 
 char goNextStep(char **maze, int currentRow, int currentCol) {
 
@@ -89,8 +103,7 @@ int main() {
 
     // The maze starts at Row=4 and Col=0, character "e"
     goNextStep(maze, 4, 0);
-
-    printMaze(maze, NUM_ROWS, NUM_COLS);
+    printMazeToFile(maze, NUM_ROWS, NUM_COLS);
 
 
     // Dealloc maze pointer and closes the file.
