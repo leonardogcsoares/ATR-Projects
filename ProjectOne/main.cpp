@@ -17,33 +17,44 @@ void printMaze(char **maze, int rows, int cols) {
 }
 
 
-void goNextStep(char **maze, int currentRow, int currentCol) {
+char goNextStep(char **maze, int currentRow, int currentCol) {
 
     if (currentRow < 0 || currentRow > NUM_ROWS ||
             currentCol < 0 || currentCol > NUM_COLS)
-        return;
+        return ' ';
 
+    else if (maze[currentRow][currentCol] == 's') {
+        return 's';
+    }
 
     else if (maze[currentRow][currentCol] == 'x' ||
-            maze[currentRow][currentCol] == 'e' ||
-            maze[currentRow][currentCol] == 's') {
+            maze[currentRow][currentCol] == 'e') {
 
         maze[currentRow][currentCol] = '-';
 
-        goNextStep(maze, currentRow-1, currentCol-1);
-        goNextStep(maze, currentRow-1, currentCol);
-        goNextStep(maze, currentRow-1, currentCol+1);
 
-        goNextStep(maze, currentRow, currentCol-1);
-        goNextStep(maze, currentRow, currentCol+1);
+        if (goNextStep(maze, currentRow-1, currentCol) == 's')
+            return 's';
+        else if (goNextStep(maze, currentRow, currentCol-1) == 's'){
+            return 's';
+        }
+        else if (goNextStep(maze, currentRow, currentCol+1) == 's') {
+            return 's';
+        }
+        else if (goNextStep(maze, currentRow+1, currentCol) == 's') {
+            return 's';
+        }
+        else
+            return ' ';
 
-        goNextStep(maze, currentRow+1, currentCol-1);
-        goNextStep(maze, currentRow+1, currentCol);
-        goNextStep(maze, currentRow+1, currentCol+1);
+//        goNextStep(maze, currentRow-1, currentCol);
+//        goNextStep(maze, currentRow, currentCol-1);
+//        goNextStep(maze, currentRow, currentCol+1);
+//        goNextStep(maze, currentRow+1, currentCol);
     }
 
     else if (maze[currentRow][currentCol] == '#')
-        return;
+        return  ' ';
 
 
 };
